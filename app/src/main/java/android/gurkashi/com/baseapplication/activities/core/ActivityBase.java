@@ -15,7 +15,7 @@ public abstract class ActivityBase<T extends ApplicationBase> extends AppCompatA
     private final DataBinder resumeBinder = new DataBinder();
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
         initBeforeLayoutInflation();
@@ -24,7 +24,7 @@ public abstract class ActivityBase<T extends ApplicationBase> extends AppCompatA
     }
 
     @Override
-    public void onPostCreate(Bundle savedInstanceState){
+    protected void onPostCreate(Bundle savedInstanceState){
         super.onPostCreate(savedInstanceState);
 
         findViews();
@@ -32,7 +32,7 @@ public abstract class ActivityBase<T extends ApplicationBase> extends AppCompatA
     }
 
     @Override
-    public void onPause(){
+    protected void onPause(){
         super.onPause();
 
         resumeBinder.clear();
@@ -41,14 +41,14 @@ public abstract class ActivityBase<T extends ApplicationBase> extends AppCompatA
     }
 
     @Override
-    public void onResume(){
+    protected void onResume(){
         super.onResume();
 
         getBaseApplication().setCurrentActivity(this);
     }
 
     @Override
-    public void onDestroy(){
+    protected void onDestroy(){
         super.onDestroy();
 
         createBinder.clear();
