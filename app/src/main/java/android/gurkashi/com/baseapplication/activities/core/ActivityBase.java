@@ -55,7 +55,7 @@ public abstract class ActivityBase<T extends ApplicationBase> extends AppCompatA
     }
 
     public <T extends Activity> void  startActivity(Class<T> activity){
-        startActivity(new Intent(this, activity));
+        startActivity(new Intent(getApplicationContext(), activity));
     }
 
     protected DataBinder getResumeBinder(){ return resumeBinder; }
@@ -65,7 +65,14 @@ public abstract class ActivityBase<T extends ApplicationBase> extends AppCompatA
         return (T) getApplicationContext();
     }
 
-    protected abstract int getContentViewLayoutResourceId();
+    protected int getContentViewLayoutResourceId() {
+        Layout layoutAnnotation = this.getClass().getAnnotation(Layout.class);
+
+        if (layoutAnnotation != null){
+            return layoutAnnotation.contentViewResourceId();
+        }
+        return 0;
+    }
 
     protected abstract void findViews();
     protected abstract void initViews();
