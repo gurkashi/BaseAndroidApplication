@@ -73,10 +73,10 @@ public abstract class ActivityBase<T extends ApplicationBase> extends AppCompatA
     }
 
     protected int getContentViewLayoutResourceId() {
-        LayoutBinding layoutAnnotation = this.getClass().getAnnotation(LayoutBinding.class);
+        Resource layoutAnnotation = this.getClass().getAnnotation(Resource.class);
 
         if (layoutAnnotation != null){
-            return layoutAnnotation.resourceId();
+            return layoutAnnotation.id();
         }
         return 0;
     }
@@ -88,14 +88,14 @@ public abstract class ActivityBase<T extends ApplicationBase> extends AppCompatA
                 .filter(new Predicate<Field>() {
                     @Override
                     public boolean predict(Field field) {
-                        return View.class.isAssignableFrom(field.getType()) && field.getAnnotation(ViewBinding.class) != null;
+                        return View.class.isAssignableFrom(field.getType()) && field.getAnnotation(Resource.class) != null;
                     }
                 })
                 .map(new Selector<Field, View>() {
                     @Override
                     public View select(Field field) {
-                        ViewBinding annotation = field.getAnnotation(ViewBinding.class);
-                        View view = findViewById(annotation.resourceId());
+                        Resource annotation = field.getAnnotation(Resource.class);
+                        View view = findViewById(annotation.id());
                         try {
                             boolean accessible = field.isAccessible();
                             field.setAccessible(true);

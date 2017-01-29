@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface LayoutBinding {
-    int resourceId() default 0;
+public @interface Resource {
+    int id() default 0;
 }
